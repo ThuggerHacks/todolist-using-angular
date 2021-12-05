@@ -7,12 +7,14 @@ import { ProductComponent } from './components/product/product.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { MarketComponent } from './components/market/market.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductComponent,
-    NotfoundComponent
+    NotfoundComponent,
+    MarketComponent
   ],
   imports: [
     BrowserModule,

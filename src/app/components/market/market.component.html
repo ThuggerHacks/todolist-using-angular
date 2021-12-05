@@ -1,0 +1,30 @@
+<div>
+    <form [formGroup]="form">
+        <input type="text" placeholder="name" formControlName="name"/><br/><br/>
+        <input type="text" name="" id="" placeholder="image url" formControlName="imageURL"><br><br>
+        <input type="text" name="" id="" placeholder="price" formControlName="price"/><br><br>
+        <textarea placeholder="description" rows="5" cols="30" formControlName="description"></textarea><br>
+        <button (click) ="add_new_product()">Salvar</button>
+    </form>
+</div>
+
+<div>
+    <table border=5 >
+        <tr>
+            <th>Name</th>
+            <th>ImageURL</th>
+            <th>Price</th>
+            <th>Description</th>
+            <th>Delete</th>
+            <th>Update</th>
+        </tr>
+        <tr *ngFor="let data of products">
+            <td>{{data.name}}</td>
+            <td>{{data.imageURL}}</td>
+            <td>{{data.price}}</td>
+            <td>{{data.description}}</td>
+            <td><button (click) = "delete_product(data._id)">Delete</button></td>
+            <td><button (click) = "update_product(data)">Update</button></td>
+        </tr>
+    </table>
+</div>
