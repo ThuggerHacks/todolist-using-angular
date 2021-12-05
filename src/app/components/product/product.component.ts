@@ -12,7 +12,7 @@ import { Product } from 'src/models/product.model';
 export class ProductComponent implements OnInit {
 
   public form: FormGroup;
-  public toDo : Product [] = [];
+  public toDo : any [] = [];
   public endpoint:String = "http://localhost:2022/api/";
   constructor(private fb: FormBuilder, private http: HttpClient) {
     this.form = this.fb.group({
@@ -30,24 +30,28 @@ export class ProductComponent implements OnInit {
   }
 
   add(){
-    this.toDo.push(new Product(this.toDo.length+1,this.form.controls['title'].value,false));
-    this.save();
+    this.http.post(this.endpoint+'/todo/post',{
+      title:this.form.controls['title'].value
+    }).subscribe(data => {
+      console.log(data)
+    })
     
-
+    this.load();
     this.form.reset();
   }
 
-  remove(list:Product){
-    let index = this.toDo.indexOf(list);
+  remove(list:any){
+    let _id = list._id;
 
-    if(index!==-1){
-      this.toDo.splice(index,1);
-    }
+    this.http.delete(this.endpoint+'todo/delete/'+_id,).subscribe(data => {
+      console.log(data)
+    })
 
+    this.load();
     this.save();
   }
 
-  mark(list:Product){
+  mark(list:any){
     if(list.status==false){
       //markAsDone
       list.status = true;
@@ -55,6 +59,12 @@ export class ProductComponent implements OnInit {
       //markAsUndone
       list.status = false;
     }
+    
+    this.http.put(this.endpoint+'todo/update/'+list._id,{
+      status:list.status
+    }).subscribe(data => {
+      console.log(data)
+    })
     this.save();
   }
 
@@ -65,8 +75,11 @@ export class ProductComponent implements OnInit {
   }
 
   load(){
-    const response = localStorage['todo'];
-   this.toDo = JSON.parse(response);
+    
+    this.http.get(this.endpoint+'/todo/get').subscribe((data:any) => {
+      this.toDo = data;
+    })
+   
     
   }
 }
