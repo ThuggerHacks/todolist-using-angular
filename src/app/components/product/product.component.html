@@ -1,0 +1,33 @@
+<div class="container">
+    <form [formGroup]="form">
+        <label for="title">Tarefa: </label>
+        <input type="text" class="tarefa" id="title" placeholder="Title" formControlName="title" />
+        <button (click)="add()" [disabled]="form.invalid">Salvar Tarefa</button>
+    </form>
+    <div class="myList">
+        <h3 *ngIf="toDo.length===0">Nothing here</h3>
+        <div class="table-responsive">
+            <table>
+                <tr>
+                    <th>Id</th>
+                    <th>Title</th>
+                    <th>Finished</th>
+                    <th>...</th>
+                    <th>...</th>
+                </tr>
+                <tr *ngFor="let list of toDo">
+                    
+                    <td>{{list.id}}</td>
+                    <td>
+                        <span *ngIf="list.status"><del>{{list.title}}</del></span>
+                        <span *ngIf="!list.status">{{list.title}}</span>
+                    </td>
+                    <td>{{list.status}}</td>
+                    <td class="done" (click)="mark(list)"><span *ngIf="list.status==false" >mark as done</span> <span *ngIf="list.status">mark as undone</span></td>
+                    <td class="done remove" (click)="remove(list)">remove</td>
+                </tr>
+            </table>
+        </div>
+       
+    </div>
+</div>
