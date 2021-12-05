@@ -1,3 +1,5 @@
+/market is a route that we use to consume an api, and the patern route is / that is a todolist
+
 # Project
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.0.3.
